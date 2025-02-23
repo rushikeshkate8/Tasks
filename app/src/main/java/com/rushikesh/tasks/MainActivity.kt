@@ -17,7 +17,7 @@ import com.rushikesh.tasks.ui.theme.TasksTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        //enableEdgeToEdge()
         setContent {
             TasksTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -25,21 +25,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TasksTheme {
-        Greeting("Android")
     }
 }

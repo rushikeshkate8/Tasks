@@ -17,12 +17,25 @@ class TaskListViewModel: ViewModel() {
     val tasks: StateFlow<List<Task>> = _tasks.asStateFlow()
     private val TAG = TaskListViewModel::class.java.simpleName
 
+    init {
+        fetchTasks()
+    }
+
     fun fetchTasks() {
         viewModelScope.launch {
             try {
                 _tasks.value = repository.getTasks()
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching tasks: ${e.message}")
+            }
+        }
+    }
+    fun deleteTask(id: Int) {
+        viewModelScope.launch {
+            try {
+                repository.deleteTask(id)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error while deleting the task: ${e.message}")
             }
         }
     }
