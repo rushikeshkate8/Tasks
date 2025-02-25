@@ -58,11 +58,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Retrofit core
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation(libs.retrofit)
 
     // Gson converter for parsing JSON
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.converter.gson)
 
     // ViewModel for Jetpack Compose
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 }
