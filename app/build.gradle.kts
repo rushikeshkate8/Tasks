@@ -49,12 +49,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
+     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Retrofit core
@@ -65,4 +60,18 @@ dependencies {
 
     // ViewModel for Jetpack Compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    // For Coroutine Testing
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6")
+    // Core Mockito library
+    testImplementation("org.mockito:mockito-core:5.6.0")
+    // Mockito support for Kotlin
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.0")
 }
