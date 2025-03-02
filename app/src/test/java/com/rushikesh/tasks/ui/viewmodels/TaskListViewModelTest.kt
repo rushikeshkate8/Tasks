@@ -1,5 +1,6 @@
 package com.rushikesh.tasks.ui.viewmodels
 
+import com.rushikesh.tasks.MainCoroutineRule
 import com.rushikesh.tasks.data.repository.TaskRepository
 import com.rushikesh.tasks.data.utils.NetworkResponse
 import kotlinx.coroutines.Dispatchers
@@ -10,6 +11,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -20,9 +22,6 @@ class TaskListViewModelTest {
 
     @Mock
     lateinit var tasksRepository: TaskRepository
-
-//    @get:Rule
-//    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Test
     fun test_GetAllTasks() = runTest {
