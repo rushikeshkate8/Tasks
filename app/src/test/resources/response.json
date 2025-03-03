@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Buy groceries",
+    "description": "Get milk, eggs, and bread from the store.",
+    "isCompleted": false,
+    "createdAt": 1710000000000
+  },
+  {
+    "id": 2,
+    "title": "Complete project report",
+    "description": "Finish the Android app report and submit it.",
+    "isCompleted": true,
+    "createdAt": 1710100000000
+  },
+  {
+    "id": 3,
+    "title": "Workout session",
+    "description": "Attend the evening gym session.",
+    "isCompleted": false,
+    "createdAt": 1710200000000
+  }
+]

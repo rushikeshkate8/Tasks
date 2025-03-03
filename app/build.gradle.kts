@@ -37,6 +37,15 @@ android {
     buildFeatures {
         compose = true
     }
+
+    sourceSets {
+        getByName("androidTest") {
+            java.srcDirs("src/sharedTest/java")
+        }
+        getByName("test") {
+            java.srcDirs("src/sharedTest/java")
+        }
+    }
 }
 
 dependencies {
