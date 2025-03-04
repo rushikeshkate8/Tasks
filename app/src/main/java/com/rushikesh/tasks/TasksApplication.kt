@@ -8,8 +8,7 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class TasksApplication : Application() {
-    @Inject
-    lateinit var tasksRepository: TaskRepository
+
     override fun onCreate() {
         super.onCreate()
     }
