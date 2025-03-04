@@ -6,10 +6,12 @@ import com.rushikesh.tasks.data.model.Task
 import com.rushikesh.tasks.data.utils.NetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class TaskRepository(val tasksApiService: TasksApiService) {
+class TaskRepository @Inject constructor() {
+
     suspend fun getAllTasks(): NetworkResponse<List<Task>> = withContext(Dispatchers.IO) {
-        val response = tasksApiService.getAllTasks()
+        val response = TasksApiInstance.tasksApi.getAllTasks()
         return@withContext if (response.isSuccessful) {
             val responseBody = response.body()
             if (responseBody != null) NetworkResponse.Success(responseBody)

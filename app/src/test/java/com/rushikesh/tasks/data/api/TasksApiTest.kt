@@ -58,7 +58,7 @@ class TasksApiTest {
         Assert.assertEquals(404, result.code())
     }
     @Test
-    fun testRepositoryGetTasks_returnTaskList() = runTest{
+    fun testRepositoryGetTasks_returnTaskList() = runTest {
         val mockResponse = MockResponse()
         mockResponse.setBody(Helper.readFile("/response.json"))
         mockResponse.setResponseCode(200)
