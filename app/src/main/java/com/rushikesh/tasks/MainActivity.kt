@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import com.rushikesh.tasks.data.repository.TaskRepository
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
         //enableEdgeToEdge()
         setContent {
             TasksTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize(), topBar = { Text("Tasks") }) { innerPadding ->
                     val taskListViewModel = ViewModelProvider(this, TasksListViewModelFactory(tasksRepository)).get(
                         TaskListViewModel::class.java)
                     TaskListScreen(taskListViewModel, padding = innerPadding)
