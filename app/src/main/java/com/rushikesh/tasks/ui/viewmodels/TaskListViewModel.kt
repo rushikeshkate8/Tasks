@@ -39,4 +39,13 @@ class TaskListViewModel(private val repository: TaskRepository): ViewModel() {
             }
         }
     }
+    fun addTask(task: Task) {
+        viewModelScope.launch {
+            try {
+                repository.addTask(task)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error while adding task: ${e.message}")
+            }
+        }
+    }
 }

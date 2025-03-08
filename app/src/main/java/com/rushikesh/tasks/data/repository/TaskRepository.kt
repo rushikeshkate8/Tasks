@@ -26,4 +26,7 @@ class TaskRepository @Inject constructor() {
     suspend fun deleteTask(id: Int) = withContext(Dispatchers.IO) {
         TasksApiInstance.tasksApi.deleteTask(id)
     }
+    suspend fun addTask(task: Task) = withContext(Dispatchers.IO) {
+        TasksApiInstance.tasksApi.addTask(task)
+    }
 }
