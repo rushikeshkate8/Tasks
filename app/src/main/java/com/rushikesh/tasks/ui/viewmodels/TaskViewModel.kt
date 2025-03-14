@@ -11,11 +11,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class TaskListViewModel(private val repository: TaskRepository): ViewModel() {
+class TaskViewModel(private val repository: TaskRepository): ViewModel() {
    // private val repository = TaskRepository()
     private val _tasks = MutableStateFlow<NetworkResponse<List<Task>>>(NetworkResponse.Loading())
     val tasks: StateFlow<NetworkResponse<List<Task>>> = _tasks.asStateFlow()
-    private val TAG = TaskListViewModel::class.java.simpleName
+
+    private val TAG = TaskViewModel::class.java.simpleName
 
     init {
         fetchTasks()
@@ -30,7 +31,7 @@ class TaskListViewModel(private val repository: TaskRepository): ViewModel() {
             }
         }
     }
-    fun deleteTask(id: Int) {
+    fun deleteTask(id: Long) {
         viewModelScope.launch {
             try {
                 repository.deleteTask(id)
@@ -42,7 +43,7 @@ class TaskListViewModel(private val repository: TaskRepository): ViewModel() {
     fun addTask(task: Task) {
         viewModelScope.launch {
             try {
-                repository.addTask(task)
+                _tasks.value = NetworkResponse.Success(_tasks.value.data?.plus(repository.addTask(task).data)) as NetworkResponse<List<Task>>
             } catch (e: Exception) {
                 Log.e(TAG, "Error while adding task: ${e.message}")
             }

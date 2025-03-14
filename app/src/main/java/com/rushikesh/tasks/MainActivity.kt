@@ -1,19 +1,19 @@
 package com.rushikesh.tasks
 
-import android.R.attr.padding
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import com.rushikesh.tasks.data.repository.TaskRepository
-import com.rushikesh.tasks.ui.screens.TaskListScreen
+import com.rushikesh.tasks.ui.navigation.AppNavHost
 import com.rushikesh.tasks.ui.theme.TasksTheme
-import com.rushikesh.tasks.ui.viewmodels.TaskListViewModel
-import com.rushikesh.tasks.ui.viewmodels.TasksListViewModelFactory
+import com.rushikesh.tasks.ui.viewmodels.TaskViewModel
+import com.rushikesh.tasks.ui.viewmodels.TaskViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -26,11 +26,18 @@ class MainActivity : ComponentActivity() {
         //enableEdgeToEdge()
         setContent {
             TasksTheme {
-                Scaffold(modifier = Modifier.fillMaxSize(), topBar = { Text("Tasks") }) { innerPadding ->
-                    val taskListViewModel = ViewModelProvider(this, TasksListViewModelFactory(tasksRepository)).get(
-                        TaskListViewModel::class.java)
-                    TaskListScreen(taskListViewModel, padding = innerPadding)
+                val taskViewModel =
+                    ViewModelProvider(this, TaskViewModelFactory(tasksRepository)).get(
+                        TaskViewModel::class.java
+                    )
+                //TaskListScreen(taskListViewModel, padding = innerPadding)
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    AppNavHost(taskViewModel)
                 }
+
             }
         }
     }

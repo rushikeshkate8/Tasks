@@ -13,8 +13,9 @@ interface TasksApiService {
     suspend fun getAllTasks(): Response<List<Task>>
 
     @DELETE("tasks/{id}")
-    suspend fun deleteTask(@Path("id") id: Int): Response<Unit>
+    suspend fun deleteTask(@Path("id") id: Long): Response<Unit>
 
+    // @Post - Requests to add new task in server, @Body - Converts Kotlin object into java for api request.
     @POST("tasks")
     suspend fun addTask(@Body task: Task): Response<Task>
 }

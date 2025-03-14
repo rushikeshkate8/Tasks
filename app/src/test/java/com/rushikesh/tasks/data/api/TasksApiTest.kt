@@ -63,7 +63,7 @@ class TasksApiTest {
         mockResponse.setBody(Helper.readFile("/response.json"))
         mockResponse.setResponseCode(200)
         mockWebServer.enqueue(mockResponse)
-        val tasksRepository = TaskRepository(tasksApiService)
+        val tasksRepository = TaskRepository()
         val response = tasksRepository.getAllTasks()
         mockWebServer.takeRequest()
         Assert.assertEquals(true, response is NetworkResponse.Success)

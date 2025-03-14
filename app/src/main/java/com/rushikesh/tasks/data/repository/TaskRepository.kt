@@ -8,10 +8,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class TaskRepository @Inject constructor() {
+class TaskRepository @Inject constructor(val tasksApiInstance: TasksApiInstance) {
 
     suspend fun getAllTasks(): NetworkResponse<List<Task>> = withContext(Dispatchers.IO) {
-        val response = TasksApiInstance.tasksApi.getAllTasks()
+        val response = tasksApiInstance.tasksApi.getAllTasks()
         return@withContext if (response.isSuccessful) {
             val responseBody = response.body()
             if (responseBody != null) NetworkResponse.Success(responseBody)
@@ -23,10 +23,17 @@ class TaskRepository @Inject constructor() {
         }
     }
 
-    suspend fun deleteTask(id: Int) = withContext(Dispatchers.IO) {
-        TasksApiInstance.tasksApi.deleteTask(id)
+    suspend fun deleteTask(id: Long) = withContext(Dispatchers.IO) {
+        val response = tasksApiInstance.tasksApi.deleteTask(id)
     }
+
     suspend fun addTask(task: Task) = withContext(Dispatchers.IO) {
-        TasksApiInstance.tasksApi.addTask(task)
+        val response = tasksApiInstance.tasksApi.addTask(task)
+        return@withContext if(response.isSuccessful) {
+            val responseBody = response.body()
+            NetworkResponse.Success(responseBody)
+        } else {
+            NetworkResponse.Error(response.errorBody()?.string())
+        }
     }
 }
