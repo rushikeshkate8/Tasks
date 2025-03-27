@@ -1,18 +1,16 @@
 package com.rushikesh.tasks.data.repository
 
-import android.content.Context
-import android.widget.Toast
+import android.util.Log
 import com.rushikesh.tasks.data.api.TasksApiService
 import com.rushikesh.tasks.data.model.Task
 import com.rushikesh.tasks.data.utils.NetworkResponse
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Singleton
-import kotlin.contracts.contract
 
 class RetrofitRepository @Inject constructor(val tasksApiService: TasksApiService) : TaskRepository {
+    private val TAG  = RetrofitRepository::class.simpleName
+
     override suspend fun getAllTasks(): NetworkResponse<List<Task>> = withContext(Dispatchers.IO) {
         val response = tasksApiService.getAllTasks()
         return@withContext if (response.isSuccessful) {
@@ -28,6 +26,7 @@ class RetrofitRepository @Inject constructor(val tasksApiService: TasksApiServic
 
     override suspend fun deleteTask(id: Long) = withContext(Dispatchers.IO) {
         val response = tasksApiService.deleteTask(id)
+        Log.d(TAG, response.message())
         return@withContext response
     }
 

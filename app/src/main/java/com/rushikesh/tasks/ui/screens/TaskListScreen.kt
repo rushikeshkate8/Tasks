@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -62,7 +63,7 @@ fun TaskListScreenContent(viewModel: TaskViewModel) {
     when (tasks?.value) {
         is NetworkResponse.Success -> {
             if (tasks?.value?.data != null)
-                TaskList(tasks.value.data!!, { task -> viewModel.deleteTask(task.id!!) })
+                TaskList(tasks.value.data!!, { task -> viewModel.deleteTask(task) })
         }
 
         is NetworkResponse.Error -> {
@@ -79,7 +80,7 @@ fun TaskListScreenContent(viewModel: TaskViewModel) {
 @Composable
 fun TaskList(taskList: List<Task>, clickListener: (Task) -> Unit) {
     LazyColumn {
-        items(taskList, key = { it.id ?: it }) { task ->
+        itemsIndexed(items = taskList, key = {_, it -> it.id ?: it }) { index, task ->
             TaskItem(task, clickListener)
         }
     }
@@ -107,13 +108,10 @@ fun TaskItem(task: Task, clickListener: (Task) -> Unit) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     task.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.clickable {
-                        clickListener(task)
-                    })
+                    style = MaterialTheme.typography.titleMedium)
                 Text(task.description, style = MaterialTheme.typography.bodyMedium)
             }
-            IconButton(onClick = {}) {
+            IconButton(onClick = {clickListener(task)}) {
                 Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = "Delete a Task"
