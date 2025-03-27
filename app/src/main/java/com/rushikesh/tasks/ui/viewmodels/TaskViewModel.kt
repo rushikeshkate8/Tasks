@@ -4,14 +4,19 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rushikesh.tasks.data.model.Task
+import com.rushikesh.tasks.data.repository.RetrofitRepository
 import com.rushikesh.tasks.data.repository.TaskRepository
 import com.rushikesh.tasks.data.utils.NetworkResponse
+import com.rushikesh.tasks.di.RetrofitQualifier
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TaskViewModel(private val repository: TaskRepository): ViewModel() {
+@HiltViewModel
+class TaskViewModel @Inject constructor(@RetrofitQualifier val repository: TaskRepository): ViewModel() {
    // private val repository = TaskRepository()
     private val _tasks = MutableStateFlow<NetworkResponse<List<Task>>>(NetworkResponse.Loading())
     val tasks: StateFlow<NetworkResponse<List<Task>>> = _tasks.asStateFlow()

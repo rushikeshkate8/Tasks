@@ -6,34 +6,14 @@ import com.rushikesh.tasks.data.model.Task
 import com.rushikesh.tasks.data.utils.NetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 import javax.inject.Inject
 
-class TaskRepository @Inject constructor(val tasksApiInstance: TasksApiInstance) {
+interface TaskRepository {
 
-    suspend fun getAllTasks(): NetworkResponse<List<Task>> = withContext(Dispatchers.IO) {
-        val response = tasksApiInstance.tasksApi.getAllTasks()
-        return@withContext if (response.isSuccessful) {
-            val responseBody = response.body()
-            if (responseBody != null) NetworkResponse.Success(responseBody)
-            else {
-                NetworkResponse.Error("${response.errorBody()?.string()}")
-            }
-        } else {
-            NetworkResponse.Error("${response.errorBody()?.string()}")
-        }
-    }
+    suspend fun getAllTasks(): NetworkResponse<List<Task>>
 
-    suspend fun deleteTask(id: Long) = withContext(Dispatchers.IO) {
-        val response = tasksApiInstance.tasksApi.deleteTask(id)
-    }
+    suspend fun deleteTask(id: Long): Response<Unit>
 
-    suspend fun addTask(task: Task) = withContext(Dispatchers.IO) {
-        val response = tasksApiInstance.tasksApi.addTask(task)
-        return@withContext if(response.isSuccessful) {
-            val responseBody = response.body()
-            NetworkResponse.Success(responseBody)
-        } else {
-            NetworkResponse.Error(response.errorBody()?.string())
-        }
-    }
+    suspend fun addTask(task: Task): NetworkResponse<Task?>
 }

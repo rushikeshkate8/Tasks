@@ -92,4 +92,6 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.51.1")
     ksp("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0") // Use the latest version available
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0") // Use the latest version available
 }
